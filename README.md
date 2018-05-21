@@ -16,8 +16,8 @@ $ npm install ara-network ara-network-node-dns
 [rc]: https://github.com/arablocks/ara-runtime-configuration
 
 [Runtime configuration][rc] can be specified by targeting the
-`[network.node.dht]` _INI_ section or the nested _JSON_ object
-`{ network: { node: { dht: { ... }}}`. For clarity, we detail the
+`[network.node.dns]` _INI_ section or the nested _JSON_ object
+`{ network: { node: { dns: { ... }}}`. For clarity, we detail the
 options below in _INI_ format.
 
 ```ini
