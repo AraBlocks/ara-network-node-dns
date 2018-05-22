@@ -25,7 +25,6 @@
     "dns",
     "network"
   ],
-  "author": "Prashanth Balasubramani",
   "license": "LGPL-3.0",
   "bugs": {
     "url": "https://github.com/AraBlocks/ara-network-node-dns/issues"
