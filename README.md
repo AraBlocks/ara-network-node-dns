@@ -23,10 +23,8 @@ options below in _INI_ format.
 ```ini
 [network.node.dns]
 multicast = true
-
 loopback = true
-
-ports = [53,5300]
+ports = 5300
 ```
 
 ### Programmatic
