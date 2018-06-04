@@ -112,6 +112,8 @@ async function configure(opts, program) {
       })
 
     if (argv.port) { opts.port = argv.port }
+    if (argv.loopback) { opts.loopback = argv.loopback }
+    if (argv.multicast) { opts.multicast = argv.multicast }
   }
 
   return extend(true, conf, opts)
