@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "ara-console": "github:arablocks/ara-console",
-    "ara-network": "github:arablocks/ara-network",
     "debug": "^3.1.0",
     "extend": "^3.0.1"
   },

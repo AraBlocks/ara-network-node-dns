@@ -93,7 +93,7 @@ async function stop(argv) {
  */
 async function configure(opts, program) {
   if (program) {
-    program
+    const { argv } = program
       .option('port', {
         alias: 'p',
         type: 'number',
@@ -110,7 +110,10 @@ async function configure(opts, program) {
         default: conf.multicast,
         describe: "Multicast DNS discovery",
       })
+
+    if (argv.port) { opts.port = argv.port }
   }
+
   return extend(true, conf, opts)
 }
 
