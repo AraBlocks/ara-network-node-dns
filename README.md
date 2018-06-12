@@ -1,6 +1,8 @@
 ara-network-node-dns
 ====================
 
+[![Build Status](https://travis-ci.com/AraBlocks/ara-network-node-dns.svg?token=r6p7pesHZ9MRJsVsrYFe&branch=master)](https://travis-ci.com/AraBlocks/ara-network-node-dns)
+
 An ARA Network node that runs a DNS.
 
 ## Installation
