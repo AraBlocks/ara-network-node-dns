@@ -4,7 +4,9 @@
   "description": "An ARA Network node that runs a DNS",
   "main": "index.js",
   "scripts": {
-    "test": ":"
+    "test": ":",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix"
   },
   "peerDependencies": {
     "ara-network": "github:arablocks/ara-network"
@@ -14,7 +16,11 @@
     "debug": "^3.1.0",
     "extend": "^3.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-littlstar": "github:littlstar/eslint-config-littlstar",
+    "eslint-plugin-import": "^2.12.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AraBlocks/ara-network-node-dns.git"
