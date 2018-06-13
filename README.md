@@ -5,61 +5,84 @@
 
 An ARA Network node that runs a DNS.
 
-## Installation
+## Status
+This project is still in alpha development.
 
+> **Important**: While this project is under active development, run `npm link ara-network-node-dns` in `ara-network` directory.
+
+## Dependencies
+- [Node](https://nodejs.org/en/download/)
+- [ara-network][ara-network]
+
+## Installation
 ```sh
 $ npm install ara-network ara-network-node-dns
 ```
 
-## Usage
+## Configuration
+[ara-runtime-configuration][ara-runtime-configuration] is a dependency of [ara-network][ara-network] and will either read from the nearest `.ararc`.  Install [ara-runtime-configuration][ara-runtime-configuration] separately to specify default values not present in an `.ararc`.
 
-### Runtime Configuration
+Runtime configuration can be specified by targeting the
+`[network.node.dns]` _INI_ section or a nested _JSON_ object
+`{ network: { node: { dns: { ... }}}}`.
 
-[rc]: https://github.com/arablocks/ara-runtime-configuration
-
-[Runtime configuration][rc] can be specified by targeting the
-`[network.node.dns]` _INI_ section or the nested _JSON_ object
-`{ network: { node: { dns: { ... }}}`. For clarity, we detail the
-options below in _INI_ format.
-
+### Examples
+_INI_ format in an `.ararc`:
 ```ini
 [network.node.dns]
 multicast = true
 loopback = true
 ports = 5300
 ```
+_JSON_ format (passed in to ara-runtime-configuration `rc` function:
+```json
+network: { 
+  node: { 
+    dns: { 
+      multicast: true, 
+      loopback: true, 
+      ports: 5300 
+    }
+  }
+}
+```
 
-### Programmatic
-
-[interface]: https://github.com/AraBlocks/ara-network/blob/master/nodes/README.md
-
-The `ara-network-node-dns` module can be used programmatically as it
-conforms to the [`ara-network` node interface][interface].
-
+## Usage
 ```js
 const dns = require('ara-network-node-dns')
 ```
 
-### Command Line (ann)
-
-With the `ann` (or `ara-network-node`) command line interface, you can
-invoke this network node by running the following:
-
-```sh
-$ ann --type dns
-```
-
-To see usage help about this network node interface, run the following:
-
-```sh
+```bash
 $ ann --type dns --help
+usage: ann -t dns [options]
+
+Options:
+  --debug, -D  Enable debug output                                     [boolean]
+  --conf, -C   Path to configuration file                               [string]
+  --help, -h   Show help                                               [boolean]
+  --port, -p   Port or ports to listen on          [number] [default: [53,5300]]
+  --loopback   Loopback DNS discovery                  [boolean] [default: true]
+  --multicast  Multicast DNS discovery                 [boolean] [default: true]
 ```
+
+### Examples
+Invoke a network node with the `ann` (or `ara-network-node`) command line interface:
+```sh
+$ ann --type dns --port 5300
+```
+
+## Contributing
+- [Commit message format](/.github/COMMIT_FORMAT.md)
+- [Commit message examples](/.github/COMMIT_FORMAT_EXAMPLES.md)
+- [How to contribute](/.github/CONTRIBUTING.md)
 
 ## See Also
-
-* [ara-network](https://github.com/arablocks/ara-network)
-* [dns-discovery](https://github.com/mafintosh/dns-discovery)
+- [ara-network][ara-network]
+- [ara-runtime-configuration][ara-runtime-configuration]
+- [dns-discovery](https://github.com/mafintosh/dns-discovery)
 
 ## License
-
 LGPL-3.0
+
+[ara-network]: https://github.com/arablocks/ara-network
+[ara-runtime-configuration]: https://github.com/arablocks/ara-runtime-configuration
