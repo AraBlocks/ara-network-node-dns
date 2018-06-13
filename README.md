@@ -1,4 +1,4 @@
-ara-network-node-dns
+<img src="https://github.com/AraBlocks/docs/blob/master/ara.png" width="30" height="30" /> ara-network-node-dns
 ====================
 
 [![Build Status](https://travis-ci.com/AraBlocks/ara-network-node-dns.svg?token=r6p7pesHZ9MRJsVsrYFe&branch=master)](https://travis-ci.com/AraBlocks/ara-network-node-dns)
