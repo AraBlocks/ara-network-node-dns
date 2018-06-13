@@ -8,7 +8,7 @@ An ARA Network node that runs a DNS.
 ## Status
 This project is still in alpha development.
 
-> **Important**: While this project is under active development, run `npm link ara-network-node-dns` in `ara-network` directory.
+> **Important**: While this project is under active development, run `npm link` in `ara-network-node-dns` directory & `npm link ara-network-node-dns` in `ara-network` directory.
 
 ## Dependencies
 - [Node](https://nodejs.org/en/download/)
