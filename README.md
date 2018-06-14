@@ -52,6 +52,7 @@ network: {
 const dns = require('ara-network-node-dns')
 ```
 
+#### Command Line (ann)
 ```bash
 $ ann --type dns --help
 usage: ann -t dns [options]
@@ -66,6 +67,7 @@ Options:
 ```
 
 ### Examples
+#### Command Line (ann)
 Invoke a network node with the `ann` (or `ara-network-node`) command line interface:
 ```sh
 $ ann --type dns --port 5300
