@@ -1,5 +1,3 @@
-
-
 const { info, warn } = require('ara-console')
 const extend = require('extend')
 const debug = require('debug')('ara:network:node:dht')
@@ -34,8 +32,6 @@ async function start() {
 
   server = dns.createServer(conf)
   server.on('error', onerror)
-  server.on('traffic', ontraffic)
-  server.on('secrets-rotated', onsecretsrotated)
   server.listen(conf.port)
 
   for (const socket of server._sockets) {
@@ -59,15 +55,6 @@ async function start() {
     }
 
     return false
-  }
-
-  function ontraffic(type, details) {
-    const { message } = details
-    info('dns: traffic: %s: %s: %s', type, message.type, message.opcode)
-  }
-
-  function onsecretsrotated() {
-    info('dns: Secrets rotated')
   }
 }
 
