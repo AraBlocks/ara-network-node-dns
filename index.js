@@ -1,6 +1,6 @@
 'use strict'
 
-const { info, warn, error } = require('ara-console')
+const { info, warn } = require('ara-console')
 const extend = require('extend')
 const debug = require('debug')('ara:network:node:dht')
 const dns = require('ara-network/dns')
@@ -33,9 +33,7 @@ async function start(argv) {
   info("dns: Starting server")
 
   server = dns.createServer(conf)
-  server.on('error',onerror)
-  server.on('traffic',ontraffic)
-  server.on('secrets-rotated',onsecretsrotated)
+  server.on('error', onerror)
   server.listen(conf.port)
 
   for (const socket of server._sockets) {
@@ -57,15 +55,6 @@ async function start(argv) {
         return debug("error:", err)
       }
     }
-  }
-
-  function ontraffic(type, details) {
-    const { message, peer } = details
-    info("dns: traffic: %s: %s: %s", type, message.type, message.opcode)
-  }
-
-  function onsecretsrotated() {
-    info("dns: Secrets rotated")
   }
 }
 
