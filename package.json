@@ -1,6 +1,6 @@
 {
   "name": "ara-network-node-dns",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "An ARA Network node that runs a DNS",
   "main": "index.js",
   "scripts": {
