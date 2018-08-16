@@ -28,8 +28,6 @@ let server = null
 async function start() {
   if (server) { return false }
 
-  info('dns: Starting server')
-
   server = dns.createServer(conf)
   server.on('error', onerror)
   server.listen(conf.port)
