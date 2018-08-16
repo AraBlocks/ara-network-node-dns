@@ -1,5 +1,5 @@
+/* eslint-disable no-param-reassign */
 const { info, warn } = require('ara-console')
-const extend = require('extend')
 const debug = require('debug')('ara:network:node:dht')
 const dns = require('ara-network/dns')
 
@@ -9,15 +9,13 @@ const dns = require('ara-network/dns')
 const conf = {
   multicast: true,
   loopback: true,
-  ports: [53, 5300]
+  ports: [ 53, 5300 ]
 }
-
 
 /**
  * DNS server object
  */
 let server = null
-
 
 /**
  * Starts a DNS server node
@@ -42,20 +40,17 @@ async function start() {
   return true
 
   function onerror(err) {
-    if (err && err.code == 'EACCES') {
+    if (err && 'EACCES' === err.code) {
       const { port } = err
       conf.ports.splice(conf.ports.indexOf(port), 1)
-      return debug('error:', err)
-    } else if (conf.multicast == true) {
-      if (err && err.code == 'EADDRINUSE') {
-        return debug('error:', err)
+      debug('error:', err)
+    } else if (true === conf.multicast) {
+      if (err && 'EADDRINUSE' === err.code) {
+        debug('error:', err)
       }
     }
-
-    return false
   }
 }
-
 
 /**
  * Stops a DNS server node
@@ -63,7 +58,7 @@ async function start() {
  * @return Boolean
  */
 async function stop() {
-  if (server == null) { return false }
+  if (!server) { return false }
   warn('dns: Stopping server')
   server.destroy(ondestroy)
   return true
@@ -81,19 +76,21 @@ async function stop() {
 async function configure(opts, program) {
   if (program) {
     const { argv } = program
-      .option('port', {
-        alias: 'p',
+      .option('p', {
         type: 'number',
+        alias: 'port',
+        default: conf.ports,
         describe: 'Port or ports to listen on',
-        default: conf.ports
       })
-      .option('loopback', {
+      .option('L', {
         type: 'boolean',
+        alias: 'loopback',
         default: conf.loopback,
         describe: 'Loopback DNS discovery',
       })
-      .option('multicast', {
+      .option('M', {
         type: 'boolean',
+        alias: 'multicast',
         default: conf.multicast,
         describe: 'Multicast DNS discovery',
       })
@@ -103,7 +100,9 @@ async function configure(opts, program) {
     if (argv.multicast) { opts.multicast = argv.multicast }
   }
 
-  return extend(true, conf, opts)
+  conf.port = opts.port
+  conf.loopback = opts.loopback
+  opts.multicast = opts.multicast
 }
 
 /**
