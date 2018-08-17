@@ -25,11 +25,12 @@
   },
   "homepage": "https://github.com/AraBlocks/ara-network-node-dns#readme",
   "dependencies": {
-    "ara-console": "github:arablocks/ara-console",
     "ara-network": "github:arablocks/ara-network",
     "debug": "^3.1.0"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+    "ara-console": "github:arablocks/ara-console"
+  },
   "optionalDependencies": {},
   "devDependencies": {
     "ava": "^0.25.0",
