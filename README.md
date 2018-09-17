@@ -3,7 +3,7 @@
 
 [![Build Status](https://travis-ci.com/AraBlocks/ara-network-node-dns.svg?token=r6p7pesHZ9MRJsVsrYFe&branch=master)](https://travis-ci.com/AraBlocks/ara-network-node-dns)
 
-An ARA Network node that runs a DNS.
+An Ara Network node that runs a DNS.
 
 ## Status
 This project is still in alpha development.
@@ -36,12 +36,12 @@ port = 5300
 ```
 _JSON_ format (passed in to ara-runtime-configuration `rc` function:
 ```json
-"network": { 
-  "node": { 
-    "dns": { 
-      "multicast": true, 
-      "loopback": true, 
-      "port": 5300 
+"network": {
+  "node": {
+    "dns": {
+      "multicast": true,
+      "loopback": true,
+      "port": 5300
     }
   }
 }
