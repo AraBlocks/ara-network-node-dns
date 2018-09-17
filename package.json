@@ -1,7 +1,7 @@
 {
   "name": "ara-network-node-dns",
   "version": "0.3.0",
-  "description": "An ARA Network node that runs a DNS",
+  "description": "An Ara Network node that runs a DNS",
   "main": "index.js",
   "scripts": {
     "test": ":",
@@ -25,8 +25,8 @@
   },
   "homepage": "https://github.com/AraBlocks/ara-network-node-dns#readme",
   "dependencies": {
-    "ara-console": "github:arablocks/ara-console",
-    "ara-network": "github:arablocks/ara-network",
+    "ara-console": "github:arablocks/ara-console#0.2.1",
+    "ara-network": "github:arablocks/ara-network#1.0.0-beta.3",
     "debug": "^3.1.0"
   },
   "peerDependencies": {},
@@ -34,7 +34,7 @@
   "devDependencies": {
     "ava": "^0.25.0",
     "eslint": "^4.19.1",
-    "eslint-config-ara": "github:arablocks/eslint-config-ara",
+    "eslint-config-ara": "github:arablocks/eslint-config-ara#2.1.0",
     "eslint-plugin-import": "^2.12.0"
   }
 }
