@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "lint-fix": "eslint . --fix"
+    "lint-fix": "eslint . --fix",
+    "changelog": "conventional-changelog --same-file --preset angular --release-count 0 --infile CHANGELOG.md",
+    "version": "npm run changelog && git add CHANGELOG.md"
   },
   "repository": {
     "type": "git",
@@ -24,16 +26,17 @@
   },
   "homepage": "https://github.com/AraBlocks/ara-network-node-dns#readme",
   "dependencies": {
-    "ara-console": "github:arablocks/ara-console#0.2.1",
+    "ara-console": "github:arablocks/ara-console#semver:0.2.x",
     "ara-network": "github:arablocks/ara-network#1.0.0-beta.3",
     "debug": "^3.1.0"
   },
   "peerDependencies": {},
   "optionalDependencies": {},
   "devDependencies": {
+    "conventional-changelog-cli": "^2.0.5",
     "ava": "^0.25.0",
     "eslint": "^4.19.1",
-    "eslint-config-ara": "github:arablocks/eslint-config-ara#2.1.0",
+    "eslint-config-ara": "github:arablocks/eslint-config-ara#semver:^2.1.1",
     "eslint-plugin-import": "^2.12.0"
   }
 }
