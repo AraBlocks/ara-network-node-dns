@@ -2,6 +2,8 @@
 const { info, warn } = require('ara-console')
 const debug = require('debug')('ara:network:node:dht')
 const dns = require('ara-network/dns')
+const DNS = require('dns-socket')
+const ip = require('ip')
 
 /**
  * Configuration of the DNS server
@@ -26,15 +28,80 @@ let server = null
 async function start() {
   if (server) { return false }
 
+  const sock = DNS()
+  const ports = []
+
   server = dns.createServer(conf)
   server.on('error', onerror)
   server.listen(conf.port)
 
-  for (const socket of server._sockets) {
-    socket.on('listening', () => {
-      const { port } = socket.address()
+  for (const s of server._sockets) {
+    s.on('listening', () => {
+      const { port } = s.address()
       info('dns: Listening on port %s', port)
+      ports.push(port)
     })
+  }
+
+  server._onquery = function (query, port, host, socket) {
+    const reply = { questions: query.questions, answers: [] }
+
+    for (let i = 0; i < query.questions.length; i++) {
+      this._onquestion(query.questions[i], port, host, reply.answers)
+    }
+
+    for (let i = 0; i < query.answers.length; i++) {
+      this._onanswer(query.answers[i], port, host, socket)
+    }
+
+    for (let i = 0; i < query.additionals.length; i++) {
+      this._onanswer(query.additionals[i], port, host, socket)
+    }
+
+    const servers = server.servers.slice()
+    const pending = []
+
+    kick()
+
+    function kick() {
+      if (!servers.length) {
+        socket.response(query, reply, port, host)
+        return
+      }
+
+      const addr = servers.shift()
+      const { questions, additionals } = query
+
+      if ('localhost' !== addr.host) {
+        enqueue(addr.port, addr.host)
+        enqueue(addr.secondaryPort, addr.host)
+      } else {
+        kick()
+      }
+
+      function enqueue(_port, _host) {
+        if (
+          'localhost' !== _host &&
+          !ip.isLoopback(_host) &&
+          ports.includes(_port)
+        ) {
+          const q = { questions, additionals }
+          const id = sock.query(q, _port, _host, onquery)
+          pending.push(id)
+        } else {
+          onquery(null, null)
+        }
+      }
+
+      function onquery(err, res) {
+        if (!err && res && res.answers && res.answers.length) {
+          reply.answers = res.answers
+          socket.response(query, reply, port, host)
+        } else {
+          kick()
+        }
+      }
+    }
   }
 
   return true
