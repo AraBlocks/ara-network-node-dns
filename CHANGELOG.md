@@ -1,19 +1,24 @@
-<a name="0.3.1"></a>
+# [0.4.0](https://github.com/AraBlocks/ara-network-node-dns/compare/0.3.1...0.4.0) (2018-12-07)
+
+
+### Features
+
+* **index.js:** Polyfill DNS proxy to known servers ([6816035](https://github.com/AraBlocks/ara-network-node-dns/commit/6816035))
+
+
+
 ## [0.3.1](https://github.com/AraBlocks/ara-network-node-dns/compare/0.3.0...0.3.1) (2018-10-19)
 
 
 
-<a name="0.3.0"></a>
 # [0.3.0](https://github.com/AraBlocks/ara-network-node-dns/compare/0.2.2...0.3.0) (2018-08-16)
 
 
 
-<a name="0.2.2"></a>
 ## [0.2.2](https://github.com/AraBlocks/ara-network-node-dns/compare/0.2.1...0.2.2) (2018-08-16)
 
 
 
-<a name="0.2.1"></a>
 ## [0.2.1](https://github.com/AraBlocks/ara-network-node-dns/compare/9645c82...0.2.1) (2018-08-16)
 
 
