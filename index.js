@@ -101,10 +101,10 @@ async function start() {
       }
 
       function onquery(err, res) {
-        cleanup()
         if (!err && res && res.answers && res.answers.length) {
           reply.answers = res.answers
           socket.response(query, reply, port, host)
+          cleanup()
         } else {
           kick()
         }
