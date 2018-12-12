@@ -1,3 +1,12 @@
+## [0.4.2](https://github.com/AraBlocks/ara-network-node-dns/compare/0.4.1...0.4.2) (2018-12-12)
+
+
+### Bug Fixes
+
+* **index.js:** Clean up queries on success ([785caf8](https://github.com/AraBlocks/ara-network-node-dns/commit/785caf8))
+
+
+
 ## [0.4.1](https://github.com/AraBlocks/ara-network-node-dns/compare/0.4.0...0.4.1) (2018-12-12)
 
 
