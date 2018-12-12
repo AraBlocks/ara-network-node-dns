@@ -63,20 +63,27 @@ async function start() {
 
     kick()
 
+    function cleanup() {
+      while (pending.length) {
+        sock.cancel(pending.shift())
+      }
+    }
+
     function kick() {
       if (!servers.length) {
         socket.response(query, reply, port, host)
+        cleanup()
         return
       }
 
       const addr = servers.shift()
       const { questions, additionals } = query
 
-      if ('localhost' !== addr.host) {
-        enqueue(addr.port, addr.host)
-        enqueue(addr.secondaryPort, addr.host)
-      } else {
+      if ('localhost' === addr.host) {
         kick()
+      } else {
+        enqueue(addr.secondaryPort, addr.host)
+        enqueue(addr.port, addr.host)
       }
 
       function enqueue(_port, _host) {
@@ -94,6 +101,7 @@ async function start() {
       }
 
       function onquery(err, res) {
+        cleanup()
         if (!err && res && res.answers && res.answers.length) {
           reply.answers = res.answers
           socket.response(query, reply, port, host)
