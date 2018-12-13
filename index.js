@@ -43,70 +43,72 @@ async function start() {
     })
   }
 
-  server._onquery = function (query, port, host, socket) {
-    const reply = { questions: query.questions, answers: [] }
+  if (process.env.USE_ARAX_DNS) {
+    server._onquery = function (query, port, host, socket) {
+      const reply = { questions: query.questions, answers: [] }
 
-    for (let i = 0; i < query.questions.length; i++) {
-      this._onquestion(query.questions[i], port, host, reply.answers)
-    }
-
-    for (let i = 0; i < query.answers.length; i++) {
-      this._onanswer(query.answers[i], port, host, socket)
-    }
-
-    for (let i = 0; i < query.additionals.length; i++) {
-      this._onanswer(query.additionals[i], port, host, socket)
-    }
-
-    const servers = server.servers.slice()
-    const pending = []
-
-    kick()
-
-    function cleanup() {
-      while (pending.length) {
-        sock.cancel(pending.shift())
-      }
-    }
-
-    function kick() {
-      if (!servers.length) {
-        socket.response(query, reply, port, host)
-        cleanup()
-        return
+      for (let i = 0; i < query.questions.length; i++) {
+        this._onquestion(query.questions[i], port, host, reply.answers)
       }
 
-      const addr = servers.shift()
-      const { questions, additionals } = query
-
-      if ('localhost' === addr.host) {
-        kick()
-      } else {
-        enqueue(addr.secondaryPort, addr.host)
-        enqueue(addr.port, addr.host)
+      for (let i = 0; i < query.answers.length; i++) {
+        this._onanswer(query.answers[i], port, host, socket)
       }
 
-      function enqueue(_port, _host) {
-        if (
-          'localhost' !== _host &&
-          !ip.isLoopback(_host) &&
-          ports.includes(_port)
-        ) {
-          const q = { questions, additionals }
-          const id = sock.query(q, _port, _host, onquery)
-          pending.push(id)
-        } else {
-          onquery(null, null)
+      for (let i = 0; i < query.additionals.length; i++) {
+        this._onanswer(query.additionals[i], port, host, socket)
+      }
+
+      const servers = server.servers.slice()
+      const pending = []
+
+      kick()
+
+      function cleanup() {
+        while (pending.length) {
+          sock.cancel(pending.shift())
         }
       }
 
-      function onquery(err, res) {
-        if (!err && res && res.answers && res.answers.length) {
-          reply.answers = res.answers
+      function kick() {
+        if (!servers.length) {
           socket.response(query, reply, port, host)
           cleanup()
-        } else {
+          return
+        }
+
+        const addr = servers.shift()
+        const { questions, additionals } = query
+
+        if ('localhost' === addr.host) {
           kick()
+        } else {
+          enqueue(addr.secondaryPort, addr.host)
+          enqueue(addr.port, addr.host)
+        }
+
+        function enqueue(_port, _host) {
+          if (
+            'localhost' !== _host &&
+            !ip.isLoopback(_host) &&
+            ports.includes(_port)
+          ) {
+            const q = { questions, additionals }
+            const id = sock.query(q, _port, _host, onquery)
+            pending.push(id)
+          } else {
+            onquery(null, null)
+          }
+        }
+
+        function onquery(err, res) {
+          if (!err && res && res.answers && res.answers.length) {
+            reply.answers = res.answers
+            socket.response(query, reply, port, host)
+            cleanup()
+          } else {
+            kick()
+          }
         }
       }
     }
