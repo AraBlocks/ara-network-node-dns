@@ -1,3 +1,7 @@
+# [0.5.0](https://github.com/AraBlocks/ara-network-node-dns/compare/0.4.2...0.5.0) (2018-12-13)
+
+
+
 ## [0.4.2](https://github.com/AraBlocks/ara-network-node-dns/compare/0.4.1...0.4.2) (2018-12-12)
 
 
